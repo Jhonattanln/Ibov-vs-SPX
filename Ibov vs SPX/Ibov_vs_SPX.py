@@ -22,3 +22,17 @@ obs = obs[obs.SP_500 < 0]
 total = len(obs)
 print(obsv)
 print(total)
+
+### Gráfico de correlação por janelas
+n = 60
+roll_correl = dados_pct['IBOV'].rolling(n).corr(dados_pct['SP_500']).dropna()
+
+
+plt.style.use('ggplot')
+fig, ax = plt.subplots()
+ax.plot(roll_correl.index, roll_correl)
+ax.set_xlabel('Data')
+ax.set_ylabel('Correlação')
+ax.set_title('Correlação IBOV x S&P 500')
+ax.legend('Correlação')
+plt.show()
