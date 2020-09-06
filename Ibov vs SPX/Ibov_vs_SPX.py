@@ -2,6 +2,7 @@
 
 import pandas as pd
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 
 ##### Manipulando dados
@@ -27,7 +28,7 @@ print(total)
 n = 60
 roll_correl = dados_pct['IBOV'].rolling(n).corr(dados_pct['SP_500']).dropna()
 
-
+#### Gráfico de correlação
 plt.style.use('ggplot')
 fig, ax = plt.subplots()
 ax.plot(roll_correl.index, roll_correl)
@@ -35,4 +36,12 @@ ax.set_xlabel('Data')
 ax.set_ylabel('Correlação')
 ax.set_title('Correlação IBOV x S&P 500 (janela de ' + str(n) + ' dias)')
 ax.legend(['Correlação'])
+plt.show()
+
+
+#### Gráfico seaborn
+plt.style.use('ggplot')
+g = sns.JointGrid(data=dados_pct, x='SP_500',
+              y='IBOV')
+g.plot(sns.regplot, sns.distplot)
 plt.show()
